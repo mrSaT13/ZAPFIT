@@ -1,0 +1,31 @@
+{
+  "appId": "com.zapfit.app",
+  "productName": "ZAPFIT",
+  "directories": {
+    "output": "release",
+    "buildResources": "public"
+  },
+  "files": [
+    "dist/**/*",
+    "src/main/**/*",
+    "src/preload/**/*",
+    "node_modules/better-sqlite3/**/*"
+  ],
+  "win": {
+    "target": ["nsis"],
+    "icon": "public/256x256.ico",
+    "publisherName": "mrSaT13"
+  },
+  "mac": {
+    "target": "dmg",
+    "icon": "public/256x256.ico"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "displayLanguageSelector": false,
+    "license": "build/installer_license.txt",
+    "uninstallDisplayName": "ZAPFIT"
+  }
+}
