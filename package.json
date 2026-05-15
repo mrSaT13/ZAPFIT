@@ -1,7 +1,7 @@
 {
   "name": "zapfit",
-  "version": "1.0.0",
-  "description": "ZAPFIT — бета-версия (в активной разработке)",
+  "version": "1.1.0",
+  "description": "ZAPFIT — приложение для анализа активностей и управления тренировочными планами с AI",
   "main": "src/main/index.js",
   "author": "mrSaT13",
   "license": "UNLICENSED",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@tmcw/togeojson": "^7.1.2",
-    "better-sqlite3": "^9.4.3",
+    "@xmldom/xmldom": "^0.8.13",
     "chart.js": "^4.5.1",
     "date-fns": "^2.30.0",
     "framer-motion": "^12.38.0",
@@ -29,6 +29,7 @@
     "react-leaflet": "^4.2.1",
     "react-toastify": "^11.1.0",
     "recharts": "^2.8.0",
+    "sql.js": "^1.14.1",
     "strava": "^3.1.0",
     "xmldom": "^0.6.0"
   },
@@ -36,13 +37,13 @@
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
-    "electron": "^28.1.0",
-    "electron-builder": "^24.9.1",
+    "electron": "^42.0.1",
+    "electron-builder": "^26.8.1",
     "jimp": "^1.6.1",
     "png-to-ico": "^3.0.1",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.4.0",
-    "vite": "^5.0.10",
+    "vite": "^8.0.13",
     "wait-on": "^7.2.0"
   }
 }
