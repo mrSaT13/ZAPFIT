@@ -5,10 +5,9 @@ credentials.json
 *.pem
 *.key
 
-# Deps / build outputs
+# Deps / build outputs (NOTE: build/installer_license.txt is source, keep it)
 node_modules/
 dist/
-build/
 release/
 *.log
 output.log
