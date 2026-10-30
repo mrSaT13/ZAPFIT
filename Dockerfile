@@ -1,7 +1,7 @@
 # Multi-stage build: build React frontend with Vite and serve via nginx
 # Note: This is for the web/frontend deployment. For desktop app, use the compiled EXE.
 
-FROM node:18-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 ENV CI=true
 RUN npm set progress=false && npm set audit=false
@@ -17,7 +17,7 @@ RUN npm run build
 # Production stage - serve with nginx
 FROM nginx:stable-alpine
 LABEL maintainer="mrSaT13"
-LABEL version="1.1.0"
+LABEL version="1.3.0"
 LABEL description="ZAPFIT - Performance & Training Analytics"
 
 # Copy built frontend
