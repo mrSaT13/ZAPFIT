@@ -232,6 +232,8 @@ function App() {
     ? (theme === 'dark' ? 'text-white' : 'text-slate-900') 
     : (textColor === 'white' ? 'text-white' : 'text-black');
 
+  const isDemo = typeof window !== 'undefined' && window.electronAPI?.__isMock;
+
   return (
     <div className={`flex h-screen ${theme === 'dark' ? 'bg-[#101418]' : 'bg-white'} ${currentTextColor} overflow-hidden font-sans`}>
       <Sidebar 
@@ -253,7 +255,12 @@ function App() {
       />
       
       <main className={`flex-1 min-w-0 overflow-y-auto relative transition-colors ${theme === 'dark' ? 'bg-[#101418]' : 'bg-[#F4F6FA]'}`}>
-        <TitleBar />
+        {!isDemo && <TitleBar />}
+        {isDemo && (
+          <div className="sticky top-0 z-50 flex items-center justify-center gap-2 py-1.5 text-[11px] font-bold bg-amber-500/90 text-black">
+            Демо-режим · все данные вымышлены · <a href="https://github.com/mrSaT13/ZAPFIT" target="_blank" rel="noreferrer" className="underline">GitHub</a>
+          </div>
+        )}
         <ToastContainer theme={theme === 'dark' ? 'dark' : 'light'} position="bottom-right" />
         {/* Фон как в мобилке: сид-градиент + мягкие пятна */}
         <div className={`fixed top-0 left-0 w-full h-full pointer-events-none z-0 ${theme === 'dark' ? 'opacity-50' : 'opacity-30'}`}>

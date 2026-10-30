@@ -2,7 +2,10 @@
 
 **ZAPFIT** — это приложение для анализа спортивных активностей, управления тренировочными планами и отслеживания здоровья с применением AI.
 
-![Version](https://img.shields.io/badge/version-1.1.0-blue)
+![Version](https://img.shields.io/badge/version-1.3.0-blue)
+![Demo](https://img.shields.io/badge/demo-live-brightgreen)
+
+**[Живое демо](https://mrSaT13.github.io/ZAPFIT/)** — открывается в браузере с тестовыми данными, Electron не нужен.
 ![License](https://img.shields.io/badge/license-UNLICENSED-red)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-brightgreen)
 
