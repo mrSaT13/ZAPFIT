@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, Save, Clock, MapPin, TrendingUp, Activity, Zap } from 'lucide-react';
 
-const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor }) => {
+const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor, theme }) => {
   const [formData, setFormData] = useState({
     title: '',
     date: new Date().toISOString().slice(0, 16),
@@ -14,6 +14,12 @@ const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor }) => {
   });
 
   if (!isOpen) return null;
+
+  const isDark = theme === 'dark';
+  const cardClass = isDark ? 'bg-slate-900 border-white/10' : 'bg-white border-slate-200';
+  const headerClass = isDark ? 'bg-slate-800/50 border-white/10' : 'bg-slate-50 border-slate-200';
+  const titleClass = isDark ? 'text-white' : 'text-slate-900';
+  const fieldClass = isDark ? 'bg-slate-800 border-white/10 text-white' : 'bg-white border-slate-300 text-slate-900 placeholder-slate-400';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,29 +36,29 @@ const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor }) => {
   };
 
   const activityTypes = [
-    { id: 'RIDE', label: '🚴 Велосипед' },
-    { id: 'RUN', label: '🏃 Бег' },
-    { id: 'WALK', label: '🚶 Ходьба' },
-    { id: 'SWIM', label: '🏊 Плавание' },
-    { id: 'SKI', label: '⛷️ Лыжи' },
-    { id: 'HIKE', label: '🥾 Поход' },
-    { id: 'WORKOUT', label: '💪 Силовая' },
-    { id: 'YOGA', label: '🧘 Йога' },
-    { id: 'ROWING', label: '🚣 Гребля' },
-    { id: 'ICESKATE', label: '⛸️ Коньки' },
-    { id: 'TENNIS', label: '🎾 Теннис' },
-    { id: 'FOOTBALL', label: '⚽ Футбол' },
-    { id: 'OTHER', label: '✨ Другое' }
+    { id: 'RIDE', label: 'Велосипед' },
+    { id: 'RUN', label: 'Бег' },
+    { id: 'WALK', label: 'Ходьба' },
+    { id: 'SWIM', label: 'Плавание' },
+    { id: 'SKI', label: 'Лыжи' },
+    { id: 'HIKE', label: 'Поход' },
+    { id: 'WORKOUT', label: 'Силовая' },
+    { id: 'YOGA', label: 'Йога' },
+    { id: 'ROWING', label: 'Гребля' },
+    { id: 'ICESKATE', label: 'Коньки' },
+    { id: 'TENNIS', label: 'Теннис' },
+    { id: 'FOOTBALL', label: 'Футбол' },
+    { id: 'OTHER', label: 'Другое' }
   ];
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-white/10 rounded-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
-        <div className="p-6 border-b border-white/10 flex justify-between items-center bg-slate-800/50">
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
+      <div className={`border rounded-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200 ${cardClass}`}>
+        <div className={`p-6 border-b flex justify-between items-center ${headerClass}`}>
+          <h2 className={`text-xl font-bold flex items-center gap-2 ${titleClass}`}>
             <Activity className="text-orange-500" /> Добавить активность
           </h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors">
+          <button onClick={onClose} className={`text-slate-400 transition-colors ${isDark ? 'hover:text-white' : 'hover:text-slate-900'}`}>
             <X size={24} />
           </button>
         </div>
@@ -63,7 +69,7 @@ const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor }) => {
             <input
               type="text"
               required
-              className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-orange-500 outline-none transition-all"
+              className={`w-full border rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-orange-500 outline-none transition-all ${fieldClass}`}
               placeholder="Вечерний заезд"
               value={formData.title}
               onChange={(e) => setFormData({...formData, title: e.target.value})}
@@ -74,7 +80,7 @@ const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor }) => {
             <div className="space-y-1">
               <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Тип</label>
               <select
-                className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-orange-500 outline-none transition-all appearance-none"
+                className={`w-full border rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-orange-500 outline-none transition-all appearance-none ${fieldClass}`}
                 value={formData.type}
                 onChange={(e) => setFormData({...formData, type: e.target.value})}
               >
@@ -87,7 +93,7 @@ const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor }) => {
               <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Дата и время</label>
               <input
                 type="datetime-local"
-                className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-orange-500 outline-none transition-all"
+                className={`w-full border rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-orange-500 outline-none transition-all ${fieldClass}`}
                 value={formData.date}
                 onChange={(e) => setFormData({...formData, date: e.target.value})}
               />
@@ -102,7 +108,7 @@ const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor }) => {
               <input
                 type="number"
                 step="0.1"
-                className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-orange-500 outline-none"
+                className={`w-full border rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-orange-500 outline-none ${fieldClass}`}
                 placeholder="0.0"
                 value={formData.distance}
                 onChange={(e) => setFormData({...formData, distance: e.target.value})}
@@ -114,7 +120,7 @@ const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor }) => {
               </label>
               <input
                 type="number"
-                className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-orange-500 outline-none"
+                className={`w-full border rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-orange-500 outline-none ${fieldClass}`}
                 placeholder="0"
                 value={formData.duration}
                 onChange={(e) => setFormData({...formData, duration: e.target.value})}
@@ -129,7 +135,7 @@ const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor }) => {
               </label>
               <input
                 type="number"
-                className="w-full bg-slate-800 border border-white/10 rounded-xl px-2 py-2.5 text-white text-center focus:ring-2 focus:ring-orange-500 outline-none"
+                className={`w-full border rounded-xl px-2 py-2.5 text-center focus:ring-2 focus:ring-orange-500 outline-none ${fieldClass}`}
                 placeholder="0"
                 value={formData.elevation_gain}
                 onChange={(e) => setFormData({...formData, elevation_gain: e.target.value})}
@@ -141,7 +147,7 @@ const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor }) => {
               </label>
               <input
                 type="number"
-                className="w-full bg-slate-800 border border-white/10 rounded-xl px-2 py-2.5 text-white text-center focus:ring-2 focus:ring-orange-500 outline-none"
+                className={`w-full border rounded-xl px-2 py-2.5 text-center focus:ring-2 focus:ring-orange-500 outline-none ${fieldClass}`}
                 placeholder="--"
                 value={formData.avg_hr}
                 onChange={(e) => setFormData({...formData, avg_hr: e.target.value})}
@@ -153,7 +159,7 @@ const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor }) => {
               </label>
               <input
                 type="number"
-                className="w-full bg-slate-800 border border-white/10 rounded-xl px-2 py-2.5 text-white text-center focus:ring-2 focus:ring-orange-500 outline-none"
+                className={`w-full border rounded-xl px-2 py-2.5 text-center focus:ring-2 focus:ring-orange-500 outline-none ${fieldClass}`}
                 placeholder="0вт"
                 value={formData.avg_power}
                 onChange={(e) => setFormData({...formData, avg_power: e.target.value})}
@@ -165,7 +171,7 @@ const ManualActivityModal = ({ isOpen, onClose, onSave, accentColor }) => {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-3 rounded-xl border border-white/10 text-white font-semibold hover:bg-white/5 transition-colors"
+              className={`flex-1 px-4 py-3 rounded-xl border font-semibold transition-colors ${isDark ? 'border-white/10 text-white hover:bg-white/5' : 'border-slate-300 text-slate-900 hover:bg-slate-50'}`}
             >
               Отмена
             </button>

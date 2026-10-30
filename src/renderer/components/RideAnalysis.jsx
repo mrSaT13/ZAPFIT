@@ -31,12 +31,13 @@ export default function RideAnalysis({ theme, accentColor, user: initialUser }) 
     const [chartData, setChartData] = useState(null);
     const [compareMetrics, setCompareMetrics] = useState([]);
     const [user, setUser] = useState(initialUser || null);
+    const [activeTab, setActiveTab] = useState('pulse'); // Вкладки: pulse, power, speed, distance
 
     useEffect(() => {
         const load = async () => {
             const data = await api.getRides();
             setRides(data || []);
-            if (!initialUser && window.electronAPI.getUser) {
+            if (!initialUser && typeof window !== 'undefined' && window.electronAPI && window.electronAPI.getUser) {
               const u = await window.electronAPI.getUser();
               setUser(u);
             }
@@ -52,7 +53,7 @@ export default function RideAnalysis({ theme, accentColor, user: initialUser }) 
             setChartData(null);
             setCompareMetrics([]);
         }
-    }, [selectedRides, theme]);
+    }, [selectedRides, theme, activeTab]);
 
     const handleAddRide = (rideId) => {
         if (!rideId) return;
@@ -95,57 +96,88 @@ export default function RideAnalysis({ theme, accentColor, user: initialUser }) 
             { border: "rgb(168, 85, 247)", bg: "rgba(168, 85, 247, 0.1)" }
         ];
 
-            const datasets = [];
-            let maxLen = 0;
+        const datasets = [];
+        let maxLen = 0;
+        const ftp = user?.ftp || 200;
+        const maxHr = 220 - (new Date().getFullYear() - new Date(user?.birthday || '1990-01-01').getFullYear());
 
-            const ftp = user?.ftp || 200;
-            const maxHr = 220 - (new Date().getFullYear() - new Date(user?.birthday || '1990-01-01').getFullYear());
-
-            selectedRides.forEach((ride, index) => {
-                let points = [];
-                try {
-                    points = typeof ride.points === "string" ? JSON.parse(ride.points) : (ride.points || []);
-                } catch (e) {
-                    console.error(e);
-                }
-
-                if (points.length > 0) {
-                    const sampling = Math.max(1, Math.floor(points.length / 200));
-                    const filtered = points.filter((_, i) => i % sampling === 0);
-                    maxLen = Math.max(maxLen, filtered.length);
-
-                    datasets.push({
-                        label: `${ride.title || "Заезд"} (Пульс)`,
-                        data: filtered.map(p => p.hr || 0),
-                        borderColor: colors[index % colors.length].border,
-                        backgroundColor: colors[index % colors.length].bg,
-                        fill: true,
-                        tension: 0.4,
-                    });
-                }
-            });
-
-            // Добавляем линии зон, если выбран только один заезд
-            if (selectedRides.length === 1 && user) {
-                // Линия ПАНО (Threshold) - примерно 90% от макс пульса или фикс значение
-                datasets.push({
-                    label: 'Threshold HR',
-                    data: Array(maxLen).fill(Math.round(maxHr * 0.85)),
-                    borderColor: 'rgba(234, 179, 8, 0.5)',
-                    borderDash: [5, 5],
-                    borderWidth: 1,
-                    pointRadius: 0,
-                    fill: false,
-                });
+        selectedRides.forEach((ride, index) => {
+            let points = [];
+            try {
+                points = typeof ride.points === "string" ? JSON.parse(ride.points) : (ride.points || []);
+            } catch (e) {
+                console.error(e);
             }
 
-            setChartData({
-                labels: Array.from({
-                    length: maxLen
-                }, (_, i) => i),
-                datasets
+            if (points.length > 0) {
+                const sampling = Math.max(1, Math.floor(points.length / 200));
+                const filtered = points.filter((_, i) => i % sampling === 0);
+                maxLen = Math.max(maxLen, filtered.length);
+
+                let dataArray = [];
+                let label = `${ride.title || "Заезд"}`;
+
+                if (activeTab === 'pulse') {
+                    dataArray = filtered.map(p => p.hr || 0);
+                    label += ' (Пульс)';
+                } else if (activeTab === 'power') {
+                    dataArray = filtered.map(p => p.power || 0);
+                    label += ' (Мощность)';
+                } else if (activeTab === 'speed') {
+                    dataArray = filtered.map(p => p.speed || 0);
+                    label += ' (Скорость)';
+                } else if (activeTab === 'distance') {
+                    // Накапливаем дистанцию
+                    let cumDist = 0;
+                    dataArray = filtered.map((p, i) => {
+                        if (i > 0 && filtered[i-1].lat && p.lat) {
+                            const d = calculateDistance(filtered[i-1].lat, filtered[i-1].lon, p.lat, p.lon);
+                            cumDist += d;
+                        }
+                        return cumDist / 1000; // в км
+                    });
+                    label += ' (Дистанция)';
+                }
+
+                datasets.push({
+                    label,
+                    data: dataArray,
+                    borderColor: colors[index % colors.length].border,
+                    backgroundColor: colors[index % colors.length].bg,
+                    fill: true,
+                    tension: 0.4,
+                });
+            }
+        });
+
+        // Добавляем линии зон для одного заезда
+        if (selectedRides.length === 1 && user && activeTab === 'pulse') {
+            datasets.push({
+                label: 'Threshold HR',
+                data: Array(maxLen).fill(Math.round(maxHr * 0.85)),
+                borderColor: 'rgba(234, 179, 8, 0.5)',
+                borderDash: [5, 5],
+                borderWidth: 1,
+                pointRadius: 0,
+                fill: false,
             });
-        };
+        }
+
+        setChartData({
+            labels: Array.from({ length: maxLen }, (_, i) => i),
+            datasets
+        });
+    };
+
+    const calculateDistance = (lat1, lon1, lat2, lon2) => {
+        const R = 6371e3;
+        const phi1 = lat1 * Math.PI/180;
+        const phi2 = lat2 * Math.PI/180;
+        const dPhi = (lat2-lat1) * Math.PI/180;
+        const dLambda = (lon2-lon1) * Math.PI/180;
+        const a = Math.sin(dPhi/2) * Math.sin(dPhi/2) + Math.cos(phi1) * Math.cos(phi2) * Math.sin(dLambda/2) * Math.sin(dLambda/2);
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    };
 
     const options = {
         responsive: true,
@@ -187,6 +219,30 @@ export default function RideAnalysis({ theme, accentColor, user: initialUser }) 
                     </select>
                 </div>
             </div>
+
+            {/* Tab buttons for metrics */}
+            {selectedRides.length > 0 && (
+                <div className="flex gap-2 border-b" style={{ borderBottomColor: theme === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)" }}>
+                    {[
+                        { id: 'pulse', label: 'Пульс', icon: <Heart size={16} /> },
+                        { id: 'power', label: 'Мощность', icon: <Zap size={16} /> },
+                        { id: 'speed', label: 'Скорость', icon: <Activity size={16} /> },
+                        { id: 'distance', label: 'Дистанция', icon: <TrendingUp size={16} /> }
+                    ].map(tab => (
+                        <button
+                            key={tab.id}
+                            onClick={() => setActiveTab(tab.id)}
+                            className={`px-4 py-2 border-b-2 transition-colors flex items-center gap-2 ${
+                                activeTab === tab.id
+                                    ? `border-blue-500 text-blue-500`
+                                    : `border-transparent ${theme === "dark" ? "text-gray-400 hover:text-gray-300" : "text-slate-500 hover:text-slate-600"}`
+                            }`}
+                        >
+                            {tab.label}
+                        </button>
+                    ))}
+                </div>
+            )}
 
             <div className="flex flex-wrap gap-2">
                 {selectedRides.map(ride => (

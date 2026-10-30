@@ -20,13 +20,18 @@ const FitnessGraph = ({ accentColor }) => {
       setLoading(false);
     };
     loadHistory();
+    const h = () => loadHistory();
+    window.addEventListener('activities-updated', h);
+    window.addEventListener('health-updated', h);
+    window.addEventListener('settings-updated', h);
+    return () => { window.removeEventListener('activities-updated', h); window.removeEventListener('health-updated', h); window.removeEventListener('settings-updated', h); };
   }, []);
 
   if (loading || data.length === 0) {
     return (
-      <div className="bg-gray-900 rounded-xl p-6 border border-gray-800">
-        <h3 className="text-lg font-bold text-white mb-4">Динамика формы (60 дней)</h3>
-        <div className="text-gray-400 text-center py-8">
+      <div className="zap-card p-6">
+        <h3 className="text-lg font-bold mb-4">Динамика формы (60 дней)</h3>
+        <div className="text-center py-8 opacity-60">
           {loading ? 'Загрузка...' : 'Нет данных для отображения'}
         </div>
       </div>
@@ -57,8 +62,8 @@ const FitnessGraph = ({ accentColor }) => {
   };
 
   return (
-    <div className="bg-gray-900 rounded-2xl p-4 sm:p-6 border border-gray-800">
-      <h3 className="text-base sm:text-lg font-bold text-white mb-4">Динамика формы (60 дней)</h3>
+    <div className="zap-card p-4 sm:p-6">
+      <h3 className="text-base sm:text-lg font-bold mb-4">Динамика формы (60 дней)</h3>
       
       <ResponsiveContainer width="100%" height={240}>
         <LineChart data={chartData}>

@@ -1,6 +1,18 @@
 export const api = {
-    getRides: () => window.electronAPI.getRides(),
-    importGpx: () => window.electronAPI.importGpx(),
-    deleteRide: (id) => window.electronAPI.deleteRide(id),
-    getStats: () => window.electronAPI.getStats()
+    getRides: () => {
+        const a = (typeof window !== 'undefined' && window.electronAPI) ? window.electronAPI : null;
+        return a && a.getRides ? a.getRides() : Promise.resolve([]);
+    },
+    importGpx: () => {
+        const a = (typeof window !== 'undefined' && window.electronAPI) ? window.electronAPI : null;
+        return a && a.importGpx ? a.importGpx() : Promise.resolve(null);
+    },
+    deleteRide: (id) => {
+        const a = (typeof window !== 'undefined' && window.electronAPI) ? window.electronAPI : null;
+        return a && a.deleteRide ? a.deleteRide(id) : Promise.resolve(null);
+    },
+    getStats: () => {
+        const a = (typeof window !== 'undefined' && window.electronAPI) ? window.electronAPI : null;
+        return a && a.getStats ? a.getStats() : Promise.resolve(null);
+    }
 };

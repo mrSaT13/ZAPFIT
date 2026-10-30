@@ -1,13 +1,25 @@
 const { app, BrowserWindow, Tray, Menu, nativeImage, ipcMain } = require('electron');
 const path = require('path');
+const fs = require('fs');
+const { initializeDatabase } = require('./db');
 const { registerHandlers, dailyResetNow } = require('./ipcHandlers');
+const { initUpdater } = require('./updater');
 
-// Ensure handlers are registered as early as possible so preload/renderer
-// can invoke IPC methods even if the renderer starts before app.whenReady
-try {
-    registerHandlers();
-} catch (e) {
-    console.error('[main] registerHandlers early call failed', e);
+// Database will be initialized in app.whenReady()
+let dbInitialized = false;
+
+// Initialize database (async) before anything else
+async function setupDatabase() {
+    try {
+        await initializeDatabase();
+        dbInitialized = true;
+        console.log('[main] Database initialized successfully');
+        // Now register handlers after DB is ready
+        registerHandlers();
+    } catch (e) {
+        console.error('[main] Database initialization failed', e);
+        throw e;
+    }
 }
 
 // Set app name and AppUserModelId for Windows (Start Menu / Control Panel)
@@ -21,22 +33,48 @@ try {
 let mainWindow;
 
 function createWindow() {
+    const preloadPath = path.join(__dirname, '../preload/index.js');
+    const preloadAbsPath = path.resolve(__dirname, '../preload/index.js');
+    console.log('[main] __dirname:', __dirname);
+    console.log('[main] preload path (join):', preloadPath);
+    console.log('[main] preload path (resolve):', preloadAbsPath);
+    console.log('[main] preload exists (join):', fs.existsSync(preloadPath));
+    console.log('[main] preload exists (resolve):', fs.existsSync(preloadAbsPath));
+    console.log('[main] preload readable:', fs.statSync(preloadAbsPath).isFile());
+    
     mainWindow = new BrowserWindow({
-        width: 1280,
-        height: 800,
+        width: 1440,
+        height: 900,
+        minWidth: 1280,
+        minHeight: 800,
         webPreferences: {
-            preload: path.join(__dirname, '../preload/index.js'),
+            preload: preloadAbsPath,
             contextIsolation: true,
             nodeIntegration: false,
+            enableRemoteModule: false,
         },
         // Frameless window so we can draw custom titlebar
         frame: false,
         backgroundColor: '#0f172a',
     });
 
+    // Add error handlers for debugging preload issues
+    mainWindow.webContents.on('preload-error', (event, preloadPath, error) => {
+        console.error('[main] Preload error:', { preloadPath, error: error.toString() });
+    });
+    
+    mainWindow.webContents.on('crashed', () => {
+        console.error('[main] WebContents crashed');
+    });
+    
+    mainWindow.webContents.on('did-finish-load', () => {
+        console.log('[main] Page finished loading');
+    });
+
     const isDev = !app.isPackaged;
 
     if (isDev) {
+        console.log('[main] Loading URL: http://localhost:5174');
         mainWindow.loadURL('http://localhost:5174');
         mainWindow.webContents.openDevTools();
     } else {
@@ -44,9 +82,21 @@ function createWindow() {
     }
 }
 
-app.whenReady().then(() => {
-    // Handlers already registered above; create the window now
+app.whenReady().then(async () => {
+    // Initialize database first
+    try {
+        await setupDatabase();
+    } catch (e) {
+        console.error('[main] Failed to setup database, exiting', e);
+        app.quit();
+        return;
+    }
+    
+    // Create the window after DB is ready
     createWindow();
+
+    // Init auto-updater (GitHub Releases, electron-updater + API fallback)
+    try { initUpdater(mainWindow); console.log('[main] updater initialized'); } catch(e){ console.error('[main] updater failed', e); }
 
     // ipcMain handlers for window controls (used by TitleBar)
     try {
@@ -55,6 +105,12 @@ app.whenReady().then(() => {
         ipcMain.on('close-window', () => { if (mainWindow) { app.isQuiting = true; mainWindow.close(); } });
     } catch (e) { console.error('[main] ipcMain window handlers failed', e); }
 
+    // Debug: receive preload-ready from renderer
+    try {
+        ipcMain.on('preload-ready', (event, payload) => {
+            console.log('[main] Received preload-ready from renderer:', payload);
+        });
+    } catch (e) { console.error('[main] ipcMain preload-ready handler failed', e); }
 
     // Create tray icon and menu; allow minimize to tray
     try {
@@ -95,12 +151,6 @@ app.whenReady().then(() => {
         } else {
             console.error('[main] tray icon not found, skipping tray creation (looked at candidates):', candidates);
         }
-        const trayMenu = Menu.buildFromTemplate([
-            { label: 'Показать ZAPFIT', click: () => { const w = BrowserWindow.getAllWindows()[0]; if (w) { w.show(); w.focus(); } } },
-            { label: 'Выход', click: () => { app.quit(); } }
-        ]);
-        appTray.setToolTip('ZAPFIT');
-        appTray.setContextMenu(trayMenu);
 
         // When window is minimized, hide to tray
         app.on('browser-window-created', (e, win) => {

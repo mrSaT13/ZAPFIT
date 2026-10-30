@@ -36,6 +36,37 @@ body {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
+/* ZAPFIT M3-parity cards & pills (mobile: filled tonal surfaces, 16-20px radii) */
+.zap-card {
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  background: var(--bg-secondary);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.zap-pill-active {
+  border-radius: 16px;
+  font-weight: 600;
+}
+
+.zap-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  padding: 12px 12px 4px;
+}
+
+/* Hide scrollbar but keep scrolling (collapsed sidebar) */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

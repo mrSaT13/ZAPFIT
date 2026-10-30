@@ -1,10 +1,15 @@
 {
   "name": "zapfit",
-  "version": "1.1.0",
-  "description": "ZAPFIT — приложение для анализа активностей и управления тренировочными планами с AI",
+  "version": "1.3.0",
+  "description": "ZAPFIT — приложение для анализа активностей и управления тренировочными планами с AI (parity mobile 0.8.5+27 / server 0.21.0)",
   "main": "src/main/index.js",
   "author": "mrSaT13",
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrSaT13/zapfit.git"
+  },
+  "homepage": "https://github.com/mrSaT13/zapfit",
   "scripts": {
     "dev": "vite --port 5174",
     "build": "vite build",
@@ -19,6 +24,8 @@
     "@xmldom/xmldom": "^0.8.13",
     "chart.js": "^4.5.1",
     "date-fns": "^2.30.0",
+    "electron-updater": "^6.6.2",
+    "form-data": "^4.0.6",
     "framer-motion": "^12.38.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.263.1",
@@ -31,6 +38,7 @@
     "recharts": "^2.8.0",
     "sql.js": "^1.14.1",
     "strava": "^3.1.0",
+    "ws": "^8.21.0",
     "xmldom": "^0.6.0"
   },
   "devDependencies": {

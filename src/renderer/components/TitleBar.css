@@ -1,12 +1,18 @@
 .title-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 36px;
   padding: 0 8px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  background: rgba(16, 20, 24, 0.92);
+  backdrop-filter: blur(12px);
   -webkit-app-region: drag;
   user-select: none;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .title-bar-left { display: flex; align-items: center; gap:8px; }

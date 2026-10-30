@@ -1,0 +1,40 @@
+# Secrets / local credentials
+credentials.json
+.env
+.env.*
+*.pem
+*.key
+
+# Deps / build outputs
+node_modules/
+dist/
+build/
+release/
+*.log
+output.log
+electron-logs.txt
+
+# Local databases / caches
+database/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Test junk / personal dumps
+апкашечки/
+доп/
+
+# Machine-specific dev notes (local paths, usernames)
+SESSION_HANDOFF.md
+progress_summary.md
+важно.txt
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

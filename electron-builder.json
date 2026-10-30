@@ -11,10 +11,17 @@
     "src/preload/**/*",
     "node_modules/better-sqlite3/**/*"
   ],
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "mrSaT13",
+      "repo": "zapfit",
+      "private": false
+    }
+  ],
   "win": {
     "target": ["nsis"],
-    "icon": "public/256x256.ico",
-    "publisherName": "mrSaT13"
+    "icon": "public/256x256.ico"
   },
   "mac": {
     "target": "dmg",

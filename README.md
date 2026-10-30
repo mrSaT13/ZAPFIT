@@ -1,180 +1,387 @@
-# ZAPFIT — Твой тренировочный хаб под контролем
+# 🎯 ZAPFIT v1.1.0 - Performance & Training Analytics
 
-<img width="148" height="158" alt="ZAPFIT Logo" src="https://github.com/user-attachments/assets/883eea88-2b93-4a38-8150-07d14d49df10" />
+**ZAPFIT** — это приложение для анализа спортивных активностей, управления тренировочными планами и отслеживания здоровья с применением AI.
 
-**ZAPFIT** — это  фитнес-трекер. Анализирует тренировки, считает нагрузку (TSS), отслеживает гидратацию, сон, HRV и сравнивает заезды между собой. Всё в одном месте.
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
+![License](https://img.shields.io/badge/license-UNLICENSED-red)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-brightgreen)
 
----
+## 🌟 Главные возможности v1.1.0
 
-## 📱 Интерфейс приложения
+### 🤖 AI Тренировочные планы
+- Автоматическая генерация 12-недельных оптимизированных планов
+- Периодизация: Linear / Block / Undulating
+- Фазы: Build → Peak → Taper
+- Автоматическое планирование сессий
 
-### Desktop версия
+### 📊 Аналитика активностей
+- Анализ данных из Strava (интеграция)
+- CTL/ATL/TSB метрики (Chronic Training Load)
+- Карты маршрутов с GPX поддержкой
+- История всех активностей
 
-<div align="center">
-  <h3>📊 Главная панель</h3>
-   <img width="1664" height="928" alt="1780478140" src="https://github.com/user-attachments/assets/23c00beb-2460-4070-91c6-1f5159155f34" />
-  
-  <h3>📈 Анализ и сравнение активностей</h3>
-    <img width="1664" height="928" alt="1780478152" src="https://github.com/user-attachments/assets/74c1129d-cc60-4f37-960c-47d27e5844b6" />
-  <h3>🗺️ Детальный просмотр тренировки</h3>
-    <img width="1664" height="928" alt="1780478168" src="https://github.com/user-attachments/assets/a9127632-1bc3-410d-9678-e1cb70d12285" />
- 
-</div>
+### 🎯 Система целей
+- SMART цели (Specific, Measurable, Achievable, Relevant, Time-bound)
+- Типы: Distance, Duration, Elevation, Power, HR-based
+- Отслеживание прогресса в реальном времени
+- Архив завершенных целей
 
----
+### 🍽️ Управление питанием
+- 70 предзагруженных блюд с БЖУ
+- Холодильник для создания кастомных рецептов
+- Категоризация и фильтрация
+- Расчет питательных показателей
 
-### Mobile приложение
+### 💧 Отслеживание воды
+- Ежедневный счетчик (синхронизирован)
+- История потребления
+- Уведомления о нормах
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <h4>📋 Лента активностей</h4>
-        <div style="display: inline-block; border: 12px solid #1a1a1a; border-radius: 40px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
-           <img width="1664" height="928" alt="1780478106" src="https://github.com/user-attachments/assets/d98d4601-32ba-4d8e-974a-b1734927d9f7" />
-        </div>
-      </td>
-      <td align="center">
-        <h4>🚴 Мой велосипед</h4>
-        <div style="display: inline-block; border: 12px solid #1a1a1a; border-radius: 40px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
-          <img width="1664" height="928" alt="1780478122" src="https://github.com/user-attachments/assets/06c17be6-d0d5-40e4-8219-be99c1a4d34b" 
-        </div>
-      </td>
-    </tr>
-  </table>
-</div>
+### 📅 Интеллектуальный календарь
+- Визуализация тренировок из плана
+- История активностей
+- Вода и соревнования
+- День подробно
 
----
-
-## 🔥 Основные возможности
-
-### 📊 Аналитика и метрики
-- **AI Анализ** — баланс CTL/ATL/TSB, умные рекомендации по восстановлению
-- **TSS (Training Stress Score)** — точный расчёт тренировочной нагрузки
-- **Динамика формы** — график прогресса за 60 дней
-- **HRV мониторинг** — контроль вариабельности сердечного ритма
-
-### 💧 Здоровье и восстановление
-- **Гидратация** — умный трекер воды с персональными рекомендациями
-- **Сон** — отслеживание фаз и качества сна
-- **BMI и вес** — полный контроль композиции тела
-- **Восстановление** — AI-рекомендации по отдыху
-
-### 🚴 Активности
-- **Календарь тренировок** — визуализация активности по дням
-- **Сравнение заездов** — пульс, мощность, время, дистанция бок о бок
-- **GPX импорт** — загрузка маршрутов из любых устройств
-- **Ручной ввод** — гибкость для любого типа активности
-- **Карта маршрутов** — детальный просмотр треков на карте
-
----
-
-## 🎨 Дизайн и UX
-
-- 🌙 **Тёмная тема** с неоновыми акцентами
-- ⚡ **Анимации** и плавные переходы
-- 📱 **Адаптивный интерфейс** — desktop + mobile
-- 🎯 **Минималистичный UI** — ничего лишнего
-- 🎨 **Кастомные цвета** — подстрой под себя
-
----
-
-## 🛠 Технологии
-
-### Frontend
-- React / Vue.js
-- TypeScript
-- TailwindCSS / Styled Components
-- Chart.js / D3.js для визуализации
-
-### Backend
-- Node.js / Python
-- PostgreSQL / MongoDB
-- Redis для кэширования
-- JWT аутентификация
-
-### Mobile
-- React Native / Flutter
-- SQLite для офлайн-работы
-
-### Интеграции
-- Garmin Connect API
-- Strava API
-- Google Fit / Apple Health
-- GPX/FIT форматы
+### 📸 Загрузка фото
+- Сохранение фото активностей
+- Галерея маршрутов
+- Экспорт
 
 ---
 
 ## 🚀 Быстрый старт
 
 ### Требования
-- Node.js 18+ / Python 3.9+
-- PostgreSQL 14+
-- npm / yarn / pip
+- **Node.js** ≥ 16.0.0
+- **npm** ≥ 8.0.0
+- **Electron** 42.0.1 (устанавливается автоматически)
 
-### Установка
+### Установка для разработки
 
 ```bash
-# Клонируйте репозиторий
-git clone https://github.com/твой_ник/zapfit.git
+# Клонировать репозиторий
+git clone https://github.com/yourname/zapfit.git
 cd zapfit
 
-# Backend
-cd backend
+# Установить зависимости
 npm install
-cp .env.example .env
-# Отредактируйте .env файл
-npm run migrate
-npm start
 
-# Frontend (в новом терминале)
-cd ../frontend
-npm install
-npm start
-
-# Mobile (опционально)
-cd ../mobile
-npm install
-npx react-native run-ios  # для iOS
-npx react-native run-android  # для Android
+# Запустить dev сервер + Electron
+npm run electron:dev
 ```
 
-Docker (рекомендуется)
+### Сборка приложения
 
-bash
+```bash
+# Собрать ЕХЕ для Windows
+npm run electron:build
+
+# Только Vite build
+npm run build
+
+# Preview Vite build
+npm run preview
 ```
+
+Готовый установщик будет в папке `release/`
+
+---
+
+## 🐳 Docker
+
+### Запуск в Docker
+
+```bash
+# Собрать образ
+docker build -t zapfit:1.1.0 .
+
+# Запустить контейнер
+docker run -p 8000:5000 zapfit:1.1.0
+```
+
+Приложение будет доступно на `http://localhost:8000`
+
+### Docker Compose
+
+```bash
 docker-compose up -d
 ```
 
 ---
-### 🗺️ Roadmap
--  Интеграция с умными весами 
--  Групповые тренировки и челленджи
--  Экспорт данных в PDF
--  Интеграция с календарём
-- Push-уведомления
-- Тёмная/светлая тема
+
+## 📁 Структура проекта
+
+```
+zapfit/
+├── src/
+│   ├── main/                      # Electron Main Process
+│   │   ├── index.js               # App entry point
+│   │   ├── db.js                  # SQLite БД (sql.js)
+│   │   └── ipcHandlers.js         # IPC handlers (500+ LOC)
+│   ├── preload/
+│   │   └── index.js               # Preload script (API expose)
+│   └── renderer/                  # React компоненты
+│       ├── App.jsx
+│       ├── components/
+│       │   ├── Dashboard.jsx      # Главная страница
+│       │   ├── Health.jsx         # Здоровье (вода, питание, сон)
+│       │   ├── Calendar.jsx       # Календарь тренировок
+│       │   ├── GoalSetting.jsx    # Настройка целей
+│       │   ├── TrainingPlans.jsx  # Планы тренировок
+│       │   ├── RideModal.jsx      # Детали активности
+│       │   └── health-tabs/       # Компоненты вкладок
+│       ├── services/
+│       │   └── EventEmitter.js    # Event bus
+│       └── styles/
+│           └── index.css
+├── tools/                         # Вспомогательные скрипты
+├── scripts/                       # Migration скрипты
+├── docker/                        # Docker конфиг
+├── release/                       # Собранные ЕХЕ
+├── vite.config.js                # Vite конфиг
+├── electron-builder.json         # Electron Builder конфиг
+├── tailwind.config.js            # Tailwind CSS
+├── postcss.config.cjs            # PostCSS
+└── package.json
+```
+
 ---
-## 🤝 Вклад
-- Создайте feature branch (git checkout -b feature/AmazingFeature)
-- Commit changes (git commit -m 'Add some AmazingFeature')
-- Push to branch (git push origin feature/AmazingFeature)
-- Open a Pull Request
+
+## 🗄️ База данных
+
+### Используемая технология
+- **sql.js** (SQLite в памяти с сохранением на диск)
+- Расположение: `~/.config/zapfit/ZAPFIT.db` (Linux/Mac) или `%APPDATA%/zapfit/ZAPFIT.db` (Windows)
+
+### Таблицы
+
+| Таблица | Назначение | Ключевые колонки |
+|---------|-----------|-----------------|
+| `activities` | Активности из Strava | id, date, distance, duration, type |
+| `training_plans` | Тренировочные планы | id, name, start_date, end_date |
+| `training_weeks` | Недели плана | id, plan_id, week_number, focus_type |
+| `training_sessions` | Сессии тренировок | id, week_id, session_type, intensity |
+| `goals` | Цели пользователя | id, goal_type, target_value, progress |
+| `water` | Дневная вода | date, ml |
+| `water_entries` | История воды | id, amount, time |
+| `nutrition_data` | Питание | date, dish_name, calories, protein |
+| `standard_dishes` | Шаблоны блюд | id, name, category, calories, protein |
+| `sleep_data` | Сон | date, duration, quality |
+| `fitness_data` | Fitness метрики | date, ctl, atl, tsb |
+| `competitions` | Соревнования | date, name, type |
+| `gears` | Снаряжение | id, name, type |
+
 ---
-## 📄 Лицензия
-MIT License — свободно используй, меняй, распространяй. 
-Только не забудь указать автора 😉
+
+## 🔌 IPC API (Main ↔ Renderer)
+
+### Активности
+```javascript
+window.electronAPI.getRides()                     // Получить все активности
+window.electronAPI.refreshStravaToken()           // Обновить токен Strava
+window.electronAPI.importStrava()                 // Импортировать из Strava
+```
+
+### Тренировочные планы
+```javascript
+window.electronAPI.generateAIPlan(params)         // Генерация AI плана 🆕
+window.electronAPI.createTrainingPlan(data)       // Создать план
+window.electronAPI.getTrainingPlans()             // Получить все планы
+window.electronAPI.getTrainingPlanDetail(id)      // Детали плана
+window.electronAPI.updateTrainingPlan(id, data)   // Обновить план
+```
+
+### Цели
+```javascript
+window.electronAPI.addGoal(goal)                  // Добавить цель
+window.electronAPI.getGoals()                     // Получить цели
+window.electronAPI.updateGoal(id, data)           // Обновить цель
+window.electronAPI.deleteGoal(id)                 // Удалить цель
+```
+
+### Вода
+```javascript
+window.electronAPI.addWater(amount)               // Добавить воду
+window.electronAPI.getWater()                     // Получить дневную воду
+window.electronAPI.getWaterHistory()              // История воды
+window.electronAPI.updateWater(id, amount)        // Обновить запись
+window.electronAPI.deleteWater(id)                // Удалить запись
+```
+
+### Питание
+```javascript
+window.electronAPI.getStandardDishes(category)    // Получить блюда
+window.electronAPI.getDishCategories()            // Категории блюд
+window.electronAPI.addDishCategory(name)          // Добавить категорию
+window.electronAPI.query(sql, params)             // Прямой SQL запрос
+window.electronAPI.run(sql, params)               // Прямое SQL выполнение
+```
+
+### Фото
+```javascript
+window.electronAPI.updateActivityPhotos(id, photos)  // Сохранить фото 🆕
+```
+
+---
+
+## 📝 Миграции БД
+
+При обновлении с v1.0.x на v1.1.0 автоматически выполняются:
+
+```sql
+-- Добавление колонок в goals
+ALTER TABLE goals ADD COLUMN goal_type TEXT DEFAULT "distance";
+ALTER TABLE goals ADD COLUMN unit TEXT DEFAULT "км";
+ALTER TABLE goals ADD COLUMN start_date TEXT;
+ALTER TABLE goals ADD COLUMN target_date TEXT;
+ALTER TABLE goals ADD COLUMN progress_percent REAL DEFAULT 0;
+
+-- Добавление фото в activities
+ALTER TABLE activities ADD COLUMN photos TEXT;
+
+-- Добавление fitness метрик
+ALTER TABLE fitness_data ADD COLUMN ctl REAL DEFAULT 0;
+ALTER TABLE fitness_data ADD COLUMN atl REAL DEFAULT 0;
+ALTER TABLE fitness_data ADD COLUMN tsb REAL DEFAULT 0;
+```
+
+---
+
+## 🔐 Переменные окружения
+
+Создайте `.env` в корне проекта:
+
+```env
+# Strava API
+VITE_STRAVA_CLIENT_ID=your_client_id
+VITE_STRAVA_CLIENT_SECRET=your_client_secret
+
+# БД путь (опционально, по-умолчанию ~/.config/zapfit)
+DB_PATH=~/.config/zapfit/ZAPFIT.db
+
+# AI План (опционально)
+OPENAI_API_KEY=sk-...
+```
+
+---
+
+## 📊 События (Event Bus)
+
+```javascript
+import { eventEmitter } from './services/EventEmitter';
+
+// Слушать событие
+eventEmitter.on('training-plan-updated', (data) => {
+  console.log('План обновлен:', data);
+});
+
+// Отправить событие
+eventEmitter.emit('training-plan-updated', {
+  planId: 123,
+  action: 'create'
+});
+```
+
+Поддерживаемые события:
+- `training-plan-updated` - План изменился
+- `water-updated` - Вода добавлена/удалена
+- `goal-created` - Цель создана
+- `competitions-updated` - Соревнования изменились
+
+---
+
+## 🐛 Исправления v1.1.0
+
+- ✅ Фиксирована синхронизация воды между Dashboard и Water страницей
+- ✅ Фиксированы блюда без названий (проблема с prepare())
+- ✅ Добавлена поддержка загрузки фото
+- ✅ Тренировочные планы теперь синхронизируются с календарем
+- ✅ Добавлена полная система целей с отслеживанием прогресса
+- ✅ Исправлены missing tables ошибки (sleep_data, training_weeks, dish_categories)
+
+---
+
+## 💡 Советы для разработчиков
+
+### Добавление новой активности/метрики
+
+1. Создать таблицу в `src/main/db.js`
+2. Добавить IPC handler в `src/main/ipcHandlers.js`
+3. Expose в `src/preload/index.js`
+4. Использовать в React компонентах
+
+### Отладка
+
+```bash
+# Включить dev tools
+npm run electron:dev  # Автоматически открывает DevTools
+
+# Посмотреть логи
+tail -f ~/.config/zapfit/logs.txt  # Linux/Mac
+Get-Content $env:APPDATA\zapfit\logs.txt -Tail 50  # PowerShell
+```
+
+### БД инспекция
+
+```bash
+# Выполнить скрипт инспекции
+node scripts/inspect_db.js
+```
+
+---
+
+## 🚀 Развертывание
+
+### Самостоятельно
+1. Скачать `ZAPFIT Setup 1.1.0.exe`
+2. Запустить установщик
+3. Выбрать папку установки
+4. Завершить
+
+### На сервере (Docker)
+```bash
+docker run -d \
+  --name zapfit \
+  -p 8000:5000 \
+  -v /data/zapfit:/app/data \
+  zapfit:1.1.0
+```
+
+### На облаке
+
+Готовые образы для:
+- Docker Hub
+- GitHub Container Registry
+- AWS ECR
+
+---
+
+## 📞 Поддержка
+
+- **Issues**: [GitHub Issues](https://github.com/yourname/zapfit/issues)
+- **Email**: support@zapfit.dev
+- **Docs**: [Full Documentation](https://zapfit.dev/docs)
+
 ---
 
 ## 🙏 Благодарности
-- OpenStreetMap  - за карты
-- Leaflet - за картографическую библиотеку
-- Всем beta-тестерам за фидбек
+
+Спасибо:
+- **Strava** за API
+- **React** сообществу
+- **Electron** разработчикам
+- Всем тестировщикам и контрибьюторам
+
 ---
 
+## 📄 Лицензия
 
-<div align="center">
-  <strong>Сделано с ❤️ для спортсменов</strong><br>
-  <sub>© 2024 ZAPFIT. All rights reserved.</sub>
-</div>
-```
+UNLICENSED - Все права защищены © 2026 ZAPFIT Team
+
+---
+
+**Текущая версия**: 1.1.0  
+**Последнее обновление**: 15 мая 2026  
+**Автор**: mrSaT13  
+**Repository**: [GitHub](https://github.com/yourname/zapfit)

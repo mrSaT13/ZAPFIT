@@ -3,6 +3,16 @@ import { Send, MessageSquare, Bot, User, Trash2, Zap } from 'lucide-react';
 import { toast } from 'react-toastify';
 
 export default function AIChat({ theme, accentColor, user }) {
+    const isDark = theme !== 'light';
+    const titleClass = isDark ? 'text-white' : 'text-slate-900';
+    const subText = isDark ? 'text-gray-400' : 'text-slate-500';
+    const assistantBubble = isDark
+        ? 'bg-white/10 text-gray-200 border border-white/5'
+        : 'bg-slate-100 text-slate-800 border border-slate-200';
+    const inputClass = isDark
+        ? 'bg-white/5 border-white/10 text-white placeholder-gray-500 focus:bg-white/10'
+        : 'bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:bg-white';
+    const typingClass = isDark ? 'bg-white/5' : 'bg-slate-100 border border-slate-200';
     const [messages, setMessages] = useState([
         { role: 'assistant', content: 'Привет! Я твой персональный AI-тренер. Я вижу твои заезды, FTP и форму. Спрашивай о чем угодно!' }
     ]);
@@ -21,7 +31,7 @@ export default function AIChat({ theme, accentColor, user }) {
 
     useEffect(() => {
         const loadSettings = async () => {
-            if (window.electronAPI.getSettings) {
+            if (typeof window !== 'undefined' && window.electronAPI && window.electronAPI.getSettings) {
                 const settings = await window.electronAPI.getSettings();
                 if (settings.lmStudioUrl) setLmStudioUrl(settings.lmStudioUrl);
             }
@@ -101,11 +111,11 @@ ${lastRidesSummary}
                     <div className="p-2 bg-indigo-500/20 rounded-lg">
                         <MessageSquare className="text-indigo-400" size={24} />
                     </div>
-                    <h2 className="text-2xl font-bold text-white">AI Тренер-Консультант</h2>
+                    <h2 className={`text-2xl font-bold ${titleClass}`}>AI Тренер-Консультант</h2>
                 </div>
                 <button 
                     onClick={() => setMessages([messages[0]])}
-                    className="p-2 hover:bg-white/10 rounded-lg text-gray-400 transition-colors"
+                    className={`p-2 rounded-lg transition-colors ${isDark ? 'hover:bg-white/10 text-gray-400' : 'hover:bg-slate-100 text-slate-500'}`}
                     title="Очистить чат"
                 >
                     <Trash2 size={20} />
@@ -113,7 +123,7 @@ ${lastRidesSummary}
             </div>
 
             {/* Chat Window */}
-            <div className={`flex-1 overflow-y-auto rounded-3xl border border-white/10 p-6 space-y-4 transition-all ${theme === 'dark' ? 'bg-black/20' : 'bg-white shadow-inner'}`}>
+            <div className={`flex-1 overflow-y-auto rounded-3xl border p-6 space-y-4 transition-all ${isDark ? 'bg-black/20 border-white/10' : 'bg-white border-slate-200 shadow-inner'}`}>
                 {messages.map((m, i) => (
                     <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                         <div className={`max-w-[80%] flex gap-3 ${m.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
@@ -123,7 +133,7 @@ ${lastRidesSummary}
                             <div className={`p-4 rounded-2xl text-sm leading-relaxed ${
                                 m.role === 'user' 
                                 ? 'bg-orange-500 text-white rounded-tr-none' 
-                                : 'bg-white/10 text-gray-200 border border-white/5 rounded-tl-none'
+                                : `${assistantBubble} rounded-tl-none`
                             }`}>
                                 {m.content}
                             </div>
@@ -132,7 +142,7 @@ ${lastRidesSummary}
                 ))}
                 {isLoading && (
                     <div className="flex justify-start">
-                        <div className="bg-white/5 p-4 rounded-2xl flex items-center gap-2">
+                        <div className={`${typingClass} p-4 rounded-2xl flex items-center gap-2`}>
                             <div className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce"></div>
                             <div className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
                             <div className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
@@ -150,7 +160,7 @@ ${lastRidesSummary}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                     placeholder="Спроси совета по тренировкам или проанализируй заезд..."
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-6 pr-16 text-white placeholder-gray-500 focus:border-indigo-500 outline-none transition-all focus:bg-white/10"
+                    className={`w-full border rounded-2xl py-5 px-6 pr-16 focus:border-indigo-500 outline-none transition-all ${inputClass}`}
                 />
                 <button 
                     onClick={handleSend}
@@ -161,7 +171,7 @@ ${lastRidesSummary}
                 </button>
             </div>
             
-            <p className="text-[10px] text-gray-600 text-center flex items-center justify-center gap-1">
+            <p className={`text-[10px] text-center flex items-center justify-center gap-1 ${subText}`}>
                 <Zap size={10} /> Работает на базе вашего локального LM Studio сервера
             </p>
         </div>
